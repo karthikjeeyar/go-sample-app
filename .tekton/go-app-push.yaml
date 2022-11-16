@@ -6,7 +6,7 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-event: '[push]'
-    pipelinesascode.tekton.dev/on-target-branch: '[main]'
+    pipelinesascode.tekton.dev/on-target-branch: '[main,master]'
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: test-application
@@ -23,10 +23,10 @@ spec:
     value: '{{revision}}'
   - name: output-image
     value: quay.io/karthik_jk/go-app:{{revision}}
+  - name: dockerfile
+    value: docker/Dockerfile
   - name: path-context
     value: .
-  - name: dockerfile
-    value: Dockerfile
   pipelineRef:
     bundle: quay.io/redhat-appstudio/hacbs-templates-bundle:latest
     name: docker-build
